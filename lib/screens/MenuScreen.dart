@@ -1,34 +1,38 @@
 import 'dart:ui';
 
-import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/gestures/tap.dart';
+import 'package:saveredsquare/controllers/TextedButton.dart';
 import 'package:saveredsquare/screens/BaseScreen.dart';
 import 'package:saveredsquare/screens/ScreenState.dart';
 
 import '../SaveRedSquare.dart';
 
 class MenuScreen extends BaseScreen {
-  static const blue = PaletteEntry(Colors.blue);
-  Size size = Size(0, 0);
+  TextedButton _startButton;
+
+  MenuScreen() {
+    _startButton = TextedButton("START", 0.5, 0.5);
+  }
   @override
   void onTapDown(TapDownDetails details) {
-    print("TAP ON MENU SCREEN!");
-    saveRedSquare.switchScreen(ScreenState.kPlayGroundScreen);
+    _startButton.onTapDown(details, () {
+      saveRedSquare.switchScreen(ScreenState.kPlayGroundScreen);
+    });
   }
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), blue.paint);
+    _startButton.render(canvas);
   }
 
   @override
   void resize(Size size) {
-    this.size = size;
+    _startButton.resize(size);
   }
 
   @override
   void update() {
-    // TODO: implement update
+    _startButton.update();
   }
 }

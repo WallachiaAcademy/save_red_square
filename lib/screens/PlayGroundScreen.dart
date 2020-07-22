@@ -11,6 +11,7 @@ class PlayGroundScreen extends BaseScreen {
   static const red = PaletteEntry(Colors.red);
   Size size = Size(0, 0);
 
+  //TODO: FIX THE POSITION by doing _painter.width/2
   @override
   void onTapDown(TapDownDetails details) {
     print("TAP ON PLAY GROUND!!");
