@@ -1,35 +1,37 @@
 import 'dart:ui';
 
-import 'package:flame/palette.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/gestures/tap.dart';
 import 'package:saveredsquare/SaveRedSquare.dart';
+import 'package:saveredsquare/controllers/RedSquare.dart';
 import 'package:saveredsquare/screens/BaseScreen.dart';
 import 'package:saveredsquare/screens/ScreenState.dart';
 
 class PlayGroundScreen extends BaseScreen {
-  static const red = PaletteEntry(Colors.red);
-  Size size = Size(0, 0);
+  RedSquare _redSquare;
 
-  //TODO: FIX THE POSITION by doing _painter.width/2
+  PlayGroundScreen() {
+    _redSquare = RedSquare();
+  }
   @override
   void onTapDown(TapDownDetails details) {
-    print("TAP ON PLAY GROUND!!");
-    saveRedSquare.switchScreen(ScreenState.kScoreScreen);
+    _redSquare.onTapDown(details, () {
+      saveRedSquare.switchScreen(ScreenState.kScoreScreen);
+    });
   }
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(Rect.fromLTWH(0, 0, size.width, size.height), red.paint);
+    _redSquare.render(canvas);
   }
 
   @override
   void resize(Size size) {
-    this.size = size;
+    _redSquare.resize(size);
   }
 
   @override
   void update() {
-    // TODO: implement update
+    _redSquare.update();
   }
 }

@@ -49,8 +49,8 @@ class TextedButton extends BaseWidget {
     _painter.layout();
 
     _position = Offset(
-      size.width * _xRatio - (_painter.width * _xRatio),
-      size.height * _yRatio - (_painter.height * _yRatio),
+      size.width * _xRatio - (_painter.width * 0.5),
+      size.height * _yRatio - (_painter.height * 0.5),
     );
   }
 
