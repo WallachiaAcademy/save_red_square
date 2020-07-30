@@ -4,6 +4,7 @@ import 'package:saveredsquare/controllers/BaseWidget.dart';
 
 class RedSquare extends BaseWidget {
   static const blue = PaletteEntry(Colors.blue);
+  static const red = PaletteEntry(Colors.red);
 
   double _horizontalSpeed = 5;
   double _horizontalSign = 1;
@@ -18,7 +19,10 @@ class RedSquare extends BaseWidget {
 
   @override
   void render(Canvas canvas) {
-    canvas.drawRect(Rect.fromLTWH(_x, _y, _width, _height), blue.paint);
+    canvas.drawRect(
+      Rect.fromLTWH(_x, _y, _width, _height),
+      (_isSquareSafe() ? blue.paint : red.paint),
+    );
   }
 
   @override
@@ -53,10 +57,21 @@ class RedSquare extends BaseWidget {
   }
 
   void _calcSign() {
-    if (_x > size.width - _width * 2) {
+    if (_x > size.width - _width) {
       _horizontalSign = -1;
-    } else if (_x < _width) {
+    } else if (_x < _horizontalSpeed) {
       _horizontalSign = 1;
     }
+  }
+
+  bool _isSquareSafe() {
+    return _isXSafe();
+  }
+
+  bool _isXSafe() {
+    if (_x < size.width - _width * 2 && _x > _width) {
+      return true;
+    }
+    return false;
   }
 }
