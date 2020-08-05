@@ -20,6 +20,8 @@ class RedSquare extends BaseWidget {
 
   Size size = Size(0, 0);
 
+  bool _isGameOver = false;
+
   @override
   void render(Canvas canvas) {
     canvas.drawRect(
@@ -31,7 +33,6 @@ class RedSquare extends BaseWidget {
   @override
   void update() {
     _updateSpeed();
-    _calcSign();
     _calcPosition();
   }
 
@@ -49,7 +50,9 @@ class RedSquare extends BaseWidget {
   }
 
   @override
-  void onTapDown(TapDownDetails details, Function fn) {}
+  void onTapDown(TapDownDetails details, Function fn) {
+    _calcSign();
+  }
 
   void _updateSpeed() {
     if (_horizontalSpeed < 10) _horizontalSpeed += 0.001;
@@ -60,19 +63,22 @@ class RedSquare extends BaseWidget {
   void _calcPosition() {
     _x += _horizontalSpeed * _horizontalSign;
     _y += _verticalSpeed * _verticalSign;
+
+    if (_x < 0 ||
+        _x + _width > size.width ||
+        _y < 0 ||
+        _y + _height > size.height) {
+      _isGameOver = true;
+    }
   }
 
   void _calcSign() {
-    if (_x > size.width - _width) {
-      _horizontalSign = -1;
-    } else if (_x < _horizontalSpeed) {
-      _horizontalSign = 1;
+    if (!_isXSafe()) {
+      _horizontalSign *= -1;
     }
 
-    if (_y > size.height - _height) {
-      _verticalSign = -1;
-    } else if (_y < _verticalSpeed) {
-      _verticalSign = 1;
+    if (!_isYSafe()) {
+      _verticalSign *= -1;
     }
   }
 
@@ -92,5 +98,9 @@ class RedSquare extends BaseWidget {
       return true;
     }
     return false;
+  }
+
+  bool isGameOver() {
+    return _isGameOver;
   }
 }

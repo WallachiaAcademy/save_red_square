@@ -37,7 +37,9 @@ class PlayGroundScreen extends BaseScreen {
 
   @override
   void update() {
-    _redSquare.update();
-    _scoreHolder.update();
+    if (!_redSquare.isGameOver()) {
+      _redSquare.update();
+      _scoreHolder.update();
+    }
   }
 }
