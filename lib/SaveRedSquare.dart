@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:flame/game/game.dart';
@@ -20,6 +21,8 @@ class SaveRedSquare extends Game with TapDetector {
   BaseScreen _scoreScreen;
 
   Function _fnUpdate;
+
+  Size _size = Size(0, 0);
 
   SaveRedSquare() {
     _screenState = ScreenState.kMenuScreen;
@@ -45,6 +48,8 @@ class SaveRedSquare extends Game with TapDetector {
     _menuScreen?.resize(size);
     _playGroundScreen?.resize(size);
     _scoreScreen?.resize(size);
+
+    _size = size;
   }
 
   void onTapDown(TapDownDetails details) {
@@ -65,7 +70,27 @@ class SaveRedSquare extends Game with TapDetector {
   }
 
   void switchScreen(ScreenState newScreen) {
-    _screenState = newScreen;
+    switch (newScreen) {
+      case ScreenState.kScoreScreen:
+        Timer(new Duration(seconds: 3), () {
+          _scoreScreen = ScoreScreen();
+          _scoreScreen.resize(_size);
+          _screenState = newScreen;
+        });
+        break;
+      case ScreenState.kPlayGroundScreen:
+        _playGroundScreen = PlayGroundScreen();
+        _playGroundScreen.resize(_size);
+        Timer(new Duration(milliseconds: 10), () {
+          _screenState = newScreen;
+        });
+        break;
+      case ScreenState.kMenuScreen:
+        _screenState = newScreen;
+        break;
+      default:
+        _screenState = newScreen;
+    }
   }
 
   Future<void> _init() async {

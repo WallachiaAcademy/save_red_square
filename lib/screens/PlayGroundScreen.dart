@@ -12,15 +12,15 @@ class PlayGroundScreen extends BaseScreen {
   RedSquare _redSquare;
   ScoreHolder _scoreHolder;
 
+  bool _isGameOver = false;
+
   PlayGroundScreen() {
     _redSquare = RedSquare();
     _scoreHolder = ScoreHolder(0.5, 0.1);
   }
   @override
   void onTapDown(TapDownDetails details) {
-    _redSquare.onTapDown(details, () {
-      saveRedSquare.switchScreen(ScreenState.kScoreScreen);
-    });
+    _redSquare.onTapDown(details, () {});
   }
 
   @override
@@ -37,9 +37,14 @@ class PlayGroundScreen extends BaseScreen {
 
   @override
   void update() {
-    if (!_redSquare.isGameOver()) {
+    if (!_isGameOver) {
       _redSquare.update();
       _scoreHolder.update();
+
+      if (_redSquare.isGameOver()) {
+        _isGameOver = true;
+        saveRedSquare.switchScreen(ScreenState.kScoreScreen);
+      }
     }
   }
 }
