@@ -72,8 +72,8 @@ class SaveRedSquare extends Game with TapDetector {
   void switchScreen(ScreenState newScreen) {
     switch (newScreen) {
       case ScreenState.kScoreScreen:
+        _scoreScreen = ScoreScreen();
         Timer(new Duration(seconds: 3), () {
-          _scoreScreen = ScoreScreen();
           _scoreScreen.resize(_size);
           _screenState = newScreen;
         });
