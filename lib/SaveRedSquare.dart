@@ -6,7 +6,9 @@ import 'package:flame/gestures.dart';
 import 'package:flame/util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:saveredsquare/data/DataHolder.dart';
 import 'package:saveredsquare/screens/BaseScreen.dart';
+import 'package:saveredsquare/screens/LoadingScreen.dart';
 import 'package:saveredsquare/screens/MenuScreen.dart';
 import 'package:saveredsquare/screens/PlayGroundScreen.dart';
 import 'package:saveredsquare/screens/ScoreScreen.dart';
@@ -19,17 +21,19 @@ class SaveRedSquare extends Game with TapDetector {
   BaseScreen _menuScreen;
   BaseScreen _playGroundScreen;
   BaseScreen _scoreScreen;
+  BaseScreen _loadingScreen;
 
   Function _fnUpdate;
 
   Size _size = Size(0, 0);
 
   SaveRedSquare() {
-    _screenState = ScreenState.kMenuScreen;
+    _screenState = ScreenState.kLoadingScreen;
 
     _menuScreen = MenuScreen();
     _playGroundScreen = PlayGroundScreen();
     _scoreScreen = ScoreScreen();
+    _loadingScreen = LoadingScreen();
 
     _fnUpdate = _init;
   }
@@ -48,6 +52,7 @@ class SaveRedSquare extends Game with TapDetector {
     _menuScreen?.resize(size);
     _playGroundScreen?.resize(size);
     _scoreScreen?.resize(size);
+    _loadingScreen?.resize(size);
 
     _size = size;
   }
@@ -58,6 +63,8 @@ class SaveRedSquare extends Game with TapDetector {
 
   BaseScreen _getActiveScreen() {
     switch (_screenState) {
+      case ScreenState.kLoadingScreen:
+        return _loadingScreen;
       case ScreenState.kMenuScreen:
         return _menuScreen;
       case ScreenState.kPlayGroundScreen:
@@ -71,26 +78,33 @@ class SaveRedSquare extends Game with TapDetector {
 
   void switchScreen(ScreenState newScreen) {
     switch (newScreen) {
+      case ScreenState.kLoadingScreen:
+        _setState(newScreen);
+        break;
       case ScreenState.kScoreScreen:
         _scoreScreen = ScoreScreen();
         Timer(new Duration(seconds: 3), () {
           _scoreScreen.resize(_size);
-          _screenState = newScreen;
+          _setState(newScreen);
         });
         break;
       case ScreenState.kPlayGroundScreen:
         _playGroundScreen = PlayGroundScreen();
         _playGroundScreen.resize(_size);
         Timer(new Duration(milliseconds: 10), () {
-          _screenState = newScreen;
+          _setState(newScreen);
         });
         break;
       case ScreenState.kMenuScreen:
-        _screenState = newScreen;
+        _setState(newScreen);
         break;
       default:
-        _screenState = newScreen;
+        _setState(newScreen);
     }
+  }
+
+  void _setState(ScreenState newState) {
+    this._screenState = newState;
   }
 
   Future<void> _init() async {
@@ -99,6 +113,7 @@ class SaveRedSquare extends Game with TapDetector {
     Util flameUtil = Util();
     await flameUtil.fullScreen();
     await flameUtil.setOrientation(DeviceOrientation.portraitDown);
+    dataHolder.loadData();
   }
 
   void _update() {

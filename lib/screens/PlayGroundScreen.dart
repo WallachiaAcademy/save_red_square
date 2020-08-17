@@ -5,6 +5,7 @@ import 'package:flutter/src/gestures/tap.dart';
 import 'package:saveredsquare/SaveRedSquare.dart';
 import 'package:saveredsquare/controllers/RedSquare.dart';
 import 'package:saveredsquare/controllers/ScoreHolder.dart';
+import 'package:saveredsquare/data/DataHolder.dart';
 import 'package:saveredsquare/screens/BaseScreen.dart';
 import 'package:saveredsquare/screens/ScreenState.dart';
 
@@ -43,6 +44,7 @@ class PlayGroundScreen extends BaseScreen {
 
       if (_redSquare.isGameOver()) {
         _isGameOver = true;
+        dataHolder.setNewScore(_scoreHolder.getScore());
         saveRedSquare.switchScreen(ScreenState.kScoreScreen);
       }
     }

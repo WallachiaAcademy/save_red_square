@@ -96,4 +96,8 @@ class ScoreHolder extends BaseWidget {
   }
 
   void onTapDown(TapDownDetails details, Function fn) {}
+
+  int getScore() {
+    return _score.toInt();
+  }
 }

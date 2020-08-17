@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'BaseWidget.dart';
 
-class ScoreText extends BaseWidget {
+class StaticText extends BaseWidget {
   final double _xRatio;
   final double _yRatio;
   final String _text;
@@ -16,9 +16,7 @@ class ScoreText extends BaseWidget {
 
   Offset _position;
 
-  Function _fn;
-
-  ScoreText(this._text, this._fn, this._xRatio, this._yRatio) {
+  StaticText(this._text, this._xRatio, this._yRatio) {
     _painter = TextPainter(
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
@@ -30,7 +28,7 @@ class ScoreText extends BaseWidget {
     );
 
     _painter.text = TextSpan(
-      text: _text + _fn().toString(),
+      text: _text,
       style: _textStyle,
     );
 
@@ -50,7 +48,7 @@ class ScoreText extends BaseWidget {
     );
 
     _painter.text = TextSpan(
-      text: _text + _fn().toString(),
+      text: _text,
       style: _textStyle,
     );
 
