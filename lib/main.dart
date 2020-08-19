@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:saveredsquare/SaveRedSquare.dart';
+
+import 'flutter_screens/ScreenManager.dart';
 
 void main() {
-  runApp(saveRedSquare.widget);
+  runApp(ScreenManager());
 }
