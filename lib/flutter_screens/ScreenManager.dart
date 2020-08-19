@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:saveredsquare/SaveRedSquare.dart';
+import 'package:saveredsquare/flutter_screens/UserNameScreen.dart';
+import 'package:saveredsquare/screens/ScreenState.dart';
 
 class ScreenManager extends StatefulWidget {
   @override
@@ -32,27 +34,11 @@ class _ScreenManagerState extends State<ScreenManager> {
   }
 
   Widget getFlutterWidget() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            GestureDetector(
-              onTap: () {
-                print("TAP" + DateTime.now().toString());
-              },
-              child: Text(
-                "Hello world!",
-                style: TextStyle(
-                  fontSize: 50,
-                  color: Colors.teal,
-                ),
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
+    switch (saveRedSquare.getState()) {
+      case ScreenState.kSetUserScreen:
+        return UserNameScreen();
+      default:
+        return Container();
+    }
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/gestures/tap.dart';
 import 'package:saveredsquare/SaveRedSquare.dart';
 import 'package:saveredsquare/controllers/StaticText.dart';
+import 'package:saveredsquare/data/DataHolder.dart';
 import 'package:saveredsquare/screens/BaseScreen.dart';
 import 'package:saveredsquare/screens/ScreenState.dart';
 
@@ -23,7 +24,11 @@ class LoadingScreen extends BaseScreen {
       _progress += 1;
       if (_progress >= 100) {
         timer.cancel();
-        saveRedSquare.switchScreen(ScreenState.kMenuScreen);
+        if (dataHolder.getUserName() == "") {
+          saveRedSquare.switchScreen(ScreenState.kSetUserScreen);
+        } else {
+          saveRedSquare.switchScreen(ScreenState.kMenuScreen);
+        }
       }
     });
   }

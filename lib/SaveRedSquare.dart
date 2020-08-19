@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:saveredsquare/data/DataHolder.dart';
 import 'package:saveredsquare/screens/BaseScreen.dart';
+import 'package:saveredsquare/screens/BlankScreen.dart';
 import 'package:saveredsquare/screens/LoadingScreen.dart';
 import 'package:saveredsquare/screens/MenuScreen.dart';
 import 'package:saveredsquare/screens/PlayGroundScreen.dart';
@@ -23,6 +24,8 @@ class SaveRedSquare extends Game with TapDetector {
   BaseScreen _scoreScreen;
   BaseScreen _loadingScreen;
 
+  BaseScreen _blankScreen;
+
   Function _fnUpdate;
 
   Size _size = Size(0, 0);
@@ -34,6 +37,8 @@ class SaveRedSquare extends Game with TapDetector {
     _playGroundScreen = PlayGroundScreen();
     _scoreScreen = ScoreScreen();
     _loadingScreen = LoadingScreen();
+
+    _blankScreen = BlankScreen();
 
     _fnUpdate = _init;
   }
@@ -53,6 +58,7 @@ class SaveRedSquare extends Game with TapDetector {
     _playGroundScreen?.resize(size);
     _scoreScreen?.resize(size);
     _loadingScreen?.resize(size);
+    _blankScreen?.resize(size);
 
     _size = size;
   }
@@ -72,7 +78,7 @@ class SaveRedSquare extends Game with TapDetector {
       case ScreenState.kScoreScreen:
         return _scoreScreen;
       default:
-        return _menuScreen;
+        return _blankScreen;
     }
   }
 
@@ -118,5 +124,9 @@ class SaveRedSquare extends Game with TapDetector {
 
   void _update() {
     _getActiveScreen()?.update();
+  }
+
+  ScreenState getState() {
+    return _screenState;
   }
 }
