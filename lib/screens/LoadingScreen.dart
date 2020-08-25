@@ -19,7 +19,7 @@ class LoadingScreen extends BaseScreen {
   Size size = Size(0, 0);
 
   LoadingScreen() {
-    _loadingText = StaticText("LOADING", 0.5, 0.4);
+    _loadingText = StaticText("LOADING", 0.5, 0.4, 0.1);
     Timer.periodic(Duration(milliseconds: 10), (timer) {
       _progress += 1;
       if (_progress >= 100) {

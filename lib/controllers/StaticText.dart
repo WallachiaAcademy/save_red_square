@@ -11,12 +11,14 @@ class StaticText extends BaseWidget {
   final double _yRatio;
   final String _text;
 
+  final double _fontProc;
+
   TextPainter _painter;
   TextStyle _textStyle;
 
   Offset _position;
 
-  StaticText(this._text, this._xRatio, this._yRatio) {
+  StaticText(this._text, this._xRatio, this._yRatio, this._fontProc) {
     _painter = TextPainter(
       textAlign: TextAlign.center,
       textDirection: TextDirection.ltr,
@@ -44,7 +46,7 @@ class StaticText extends BaseWidget {
   void resize(Size size) {
     _textStyle = TextStyle(
       color: Colors.white,
-      fontSize: size.width * 0.1,
+      fontSize: size.width * _fontProc,
     );
 
     _painter.text = TextSpan(

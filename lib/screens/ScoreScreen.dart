@@ -19,10 +19,10 @@ class ScoreScreen extends BaseScreen {
 
   ScoreScreen() {
     _replay = TextedButton('RESTART', 0.5, 0.5);
-    _curScore =
-        StaticText('SCORE: ' + dataHolder.getCurScore().toString(), 0.5, 0.2);
-    _bestScore =
-        StaticText('BEST: ' + dataHolder.getBestScore().toString(), 0.5, 0.3);
+    _curScore = StaticText(
+        'SCORE: ' + dataHolder.getCurScore().toString(), 0.5, 0.2, 0.1);
+    _bestScore = StaticText(
+        'BEST: ' + dataHolder.getBestScore().toString(), 0.5, 0.3, 0.1);
   }
 
   @override

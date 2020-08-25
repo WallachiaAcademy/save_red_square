@@ -27,6 +27,7 @@ class SaveRedSquare extends Game with TapDetector {
   BaseScreen _blankScreen;
 
   Function _fnUpdate;
+  Function _callBack;
 
   Size _size = Size(0, 0);
 
@@ -41,6 +42,7 @@ class SaveRedSquare extends Game with TapDetector {
     _blankScreen = BlankScreen();
 
     _fnUpdate = _init;
+    _callBack = _doNothing;
   }
   @override
   void render(Canvas canvas) {
@@ -103,6 +105,12 @@ class SaveRedSquare extends Game with TapDetector {
         break;
       case ScreenState.kMenuScreen:
         _setState(newScreen);
+        _menuScreen = MenuScreen();
+        _menuScreen.resize(_size);
+        Timer(new Duration(milliseconds: 10), () {
+          _setState(newScreen);
+        });
+        break;
         break;
       default:
         _setState(newScreen);
@@ -111,6 +119,7 @@ class SaveRedSquare extends Game with TapDetector {
 
   void _setState(ScreenState newState) {
     this._screenState = newState;
+    _callBack();
   }
 
   Future<void> _init() async {
@@ -128,5 +137,11 @@ class SaveRedSquare extends Game with TapDetector {
 
   ScreenState getState() {
     return _screenState;
+  }
+
+  void _doNothing() {}
+
+  void setCallBack(Function fn) {
+    _callBack = fn;
   }
 }

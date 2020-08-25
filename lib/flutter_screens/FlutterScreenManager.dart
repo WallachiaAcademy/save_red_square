@@ -4,18 +4,22 @@ import 'package:saveredsquare/SaveRedSquare.dart';
 import 'package:saveredsquare/flutter_screens/UserNameScreen.dart';
 import 'package:saveredsquare/screens/ScreenState.dart';
 
-class ScreenManager extends StatefulWidget {
+FlutterScreenManager flutterScreenManager = new FlutterScreenManager();
+
+class FlutterScreenManager extends StatefulWidget {
   @override
-  _ScreenManagerState createState() => _ScreenManagerState();
+  _FlutterScreenManagerState createState() => _FlutterScreenManagerState();
 }
 
-class _ScreenManagerState extends State<ScreenManager> {
+class _FlutterScreenManagerState extends State<FlutterScreenManager> {
   @override
   void initState() {
     super.initState();
 
     SystemChrome.setEnabledSystemUIOverlays([]);
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown]);
+
+    saveRedSquare.setCallBack(this.refreshState);
   }
 
   @override
@@ -40,5 +44,9 @@ class _ScreenManagerState extends State<ScreenManager> {
       default:
         return Container();
     }
+  }
+
+  void refreshState() {
+    setState(() {});
   }
 }

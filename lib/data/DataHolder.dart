@@ -6,7 +6,7 @@ class DataHolder {
   int _bestScore = -1;
   int _curScore = 0;
 
-  String _userName;
+  String _userName = "";
 
   static const _bestScoreKey = "__best_score___";
   static const _userNameKey = "__user_name___";
@@ -36,6 +36,7 @@ class DataHolder {
 
   void setUserName(String userName) {
     this._userName = userName;
+    saveData();
   }
 
   Future saveData() async {
